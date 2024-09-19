@@ -301,7 +301,7 @@ export default function StudentListPage({
     </>
   );
 }
-
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 export async function getServerSideProps(
   context: GetServerSidePropsContext
 ): Promise<
@@ -319,7 +319,7 @@ export async function getServerSideProps(
   }
 
   // Fetch initial students data
-  const res = await fetch("http://localhost:3000/api/students", {
+  const res = await fetch(`${apiBaseUrl}/api/students`, {
     headers: {
       Cookie: context.req.headers.cookie || "",
     },

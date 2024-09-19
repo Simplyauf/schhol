@@ -138,7 +138,7 @@ export default function StudentDetail({ student, error }: StudentDetailProps) {
     </div>
   );
 }
-
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 export const getServerSideProps: GetServerSideProps = async ({
   params,
   req,
@@ -150,15 +150,12 @@ export const getServerSideProps: GetServerSideProps = async ({
       controller.abort();
     }, 15000);
 
-    const res = await fetch(
-      `http://localhost:3000/api/students/${params?.id}`,
-      {
-        signal: controller.signal,
-        headers: {
-          Cookie: req.headers.cookie || "",
-        },
-      }
-    );
+    const res = await fetch(`${apiBaseUrl}/api/students/${params?.id}`, {
+      signal: controller.signal,
+      headers: {
+        Cookie: req.headers.cookie || "",
+      },
+    });
 
     clearTimeout(timeoutId);
 
