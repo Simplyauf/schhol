@@ -45,13 +45,11 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
   },
-  pages: {
-    signIn: "/auth/signin",
-    // signUp: "/auth/signup",
-  },
+
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -74,10 +72,17 @@ export async function isAuthenticated(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<boolean> {
-  const session = await getServerSession(req, res, authOptions);
-  if (!session) {
-    res.status(401).json({ message: "Unauthorized" });
+  try {
+    const session = await getServerSession(req, res, authOptions);
+    console.log(session);
+    if (!session) {
+      res.status(401).json({ message: "Unauthorized" });
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("Error getting session:", error);
+    res.status(500).json({ message: "Internal Server Error" });
     return false;
   }
-  return true;
 }
