@@ -1,11 +1,10 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions, getServerSession } from "next-auth";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "Libs/mongodb";
 import bcryptjs from "bcryptjs";
-import { getServerSession } from "next-auth/next";
 import { NextApiRequest, NextApiResponse } from "next";
-import authOptions from "./[...nextauth]";
+
 interface ExtendedUser {
   id: string;
   name?: string | null;
@@ -13,7 +12,7 @@ interface ExtendedUser {
   image?: string | null;
 }
 
-export default NextAuth({
+export const authOptions: AuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     CredentialsProvider({
@@ -50,6 +49,7 @@ export default NextAuth({
   },
   pages: {
     signIn: "/auth/signin",
+    // signUp: "/auth/signup",
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -60,12 +60,16 @@ export default NextAuth({
     },
     async session({ session, token }) {
       if (token && typeof token.id === "string") {
-        (session.user as ExtendedUser).id = token.id;
+        (session.user as ExtendedUser).id = token.id; // Type-safe assignment
       }
       return session;
     },
   },
-});
+};
+
+export default async function auth(req: NextApiRequest, res: NextApiResponse) {
+  return await NextAuth(req, res, authOptions);
+}
 
 export async function isAuthenticated(
   req: NextApiRequest,
