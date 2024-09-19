@@ -237,64 +237,61 @@ export default function StudentListPage({
                   </h4>
                   <div className="flex"></div>
                 </div>
-                <ResponsiveTableWrapper>
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-[#1f1d1a]/10">
-                      <thead>
-                        <tr>
-                          {columns.map((column, i) => (
-                            <th
-                              key={i}
-                              scope="col"
-                              className="font whitespace-nowrap border-b-[#1f1d1a]/10 px-4 text-left font-[700] md:border-0 md:border-b-[3px] md:border-dashed md:px-6 md:py-3"
-                            >
-                              {column.header}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody className="font-regular divide-y divide-[#1f1d1a]/10">
-                        {filteredStudents.map((student) => (
-                          <tr key={student._id} className="md:h-[60px]">
-                            <td className="whitespace-nowrap px-3 md:max-w-lg md:whitespace-normal md:px-6 md:py-6">
-                              {student.name}
-                            </td>
-                            <td className="whitespace-nowrap px-3 md:max-w-lg md:whitespace-normal md:px-6 md:py-6">
-                              {student.registrationNumber}
-                            </td>
-                            <td className="whitespace-nowrap px-3 md:max-w-lg md:whitespace-normal md:px-6 md:py-6">
-                              {student.major}
-                            </td>
-                            <td className="whitespace-nowrap px-6 py-4">
-                              <span className="flex h-auto items-center gap-2 sm:h-[60px] sm:justify-center">
-                                <Link
-                                  href={`/students/${student._id}`}
-                                  className="font-regular cursor-pointer text-sm underline hover:underline"
-                                >
-                                  View
-                                </Link>
-                                <button
-                                  onClick={() => openEditModal(student)}
-                                  className="font-regular cursor-pointer text-sm underline hover:underline"
-                                >
-                                  Edit
-                                </button>
-                                <button
-                                  onClick={() =>
-                                    handleDeleteStudent(student._id)
-                                  }
-                                  className="font-regular cursor-pointer text-sm underline hover:underline text-red-600"
-                                >
-                                  Delete
-                                </button>
-                              </span>
-                            </td>
-                          </tr>
+
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-[#1f1d1a]/10">
+                    <thead>
+                      <tr>
+                        {columns.map((column, i) => (
+                          <th
+                            key={i}
+                            scope="col"
+                            className="font text-left whitespace-nowrap border-b-[#1f1d1a]/10 px-4  font-[700] md:border-0 md:border-b-[3px] md:border-dashed md:px-6 md:py-3"
+                          >
+                            {column.header}
+                          </th>
                         ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </ResponsiveTableWrapper>
+                      </tr>
+                    </thead>
+                    <tbody className="font-regular divide-y divide-[#1f1d1a]/10">
+                      {filteredStudents.map((student) => (
+                        <tr key={student._id} className="md:h-[60px]">
+                          <td className="whitespace-nowrap px-3 md:max-w-lg md:whitespace-normal md:px-6 text-left md:py-6">
+                            {student.name}
+                          </td>
+                          <td className="whitespace-nowrap px-3 md:max-w-lg md:whitespace-normal md:px-6 text-left md:py-6">
+                            {student.registrationNumber}
+                          </td>
+                          <td className="whitespace-nowrap px-3 md:max-w-lg md:whitespace-normal md:px-6 text-left md:py-6">
+                            {student.major}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            <span className="flex h-auto items-center gap-2 sm:h-[60px] sm:justify-start">
+                              <Link
+                                href={`/students/${student._id}`}
+                                className="font-regular cursor-pointer text-sm underline hover:underline"
+                              >
+                                View
+                              </Link>
+                              <button
+                                onClick={() => openEditModal(student)}
+                                className="font-regular cursor-pointer text-sm underline hover:underline"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => handleDeleteStudent(student._id)}
+                                className="font-regular cursor-pointer text-sm underline hover:underline text-red-600"
+                              >
+                                Delete
+                              </button>
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </>

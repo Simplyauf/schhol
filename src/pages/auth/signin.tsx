@@ -2,6 +2,7 @@ import { signIn } from "next-auth/react";
 import { useState, FormEvent } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>("");
@@ -73,10 +74,10 @@ export default function SignIn() {
           </div>
         </form>
         <div className="text-center mt-4">
-          <a href="/auth/signup" className="text-sm text-gray-400">
+          <Link href="/auth/signup" className="text-sm text-gray-400">
             Do not have an account?{" "}
             <span className="hover:text-black">Register here</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

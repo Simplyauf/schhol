@@ -18,9 +18,9 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="text-center bg-white px-8 py-32 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-6 text-gray-800">
+    <div className="flex items-center justify-center min-h-screen px-5 bg-gray-100">
+      <div className="text-center bg-white px-8 space-y-3 py-32 rounded-lg shadow-md">
+        <h1 className="lg:text-2xl text-xl font-bold mb-6 text-gray-800">
           Student Information Management System
         </h1>
         {session ? (

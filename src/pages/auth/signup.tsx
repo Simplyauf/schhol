@@ -1,6 +1,7 @@
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 export default function SignUp() {
   const [email, setEmail] = useState<string>("");
@@ -92,9 +93,9 @@ export default function SignUp() {
         <div className="text-center mt-4">
           <p className="text-sm text-gray-400">
             Already have an account?{" "}
-            <a href="/auth/signin" className="hover:text-black">
+            <Link href="/auth/signin" className="hover:text-black">
               Log in here
-            </a>
+            </Link>
           </p>
         </div>
       </div>
