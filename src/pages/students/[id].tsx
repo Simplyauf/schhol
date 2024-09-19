@@ -138,7 +138,7 @@ export default function StudentDetail({ student, error }: StudentDetailProps) {
     </div>
   );
 }
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+const apiBaseUrl = process.env.NEXTAUTH_URL;
 export const getServerSideProps: GetServerSideProps = async ({
   params,
   req,
