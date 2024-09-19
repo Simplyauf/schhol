@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { AddButton } from "Components/AddButton";
 import { ClipLoader } from "react-spinners";
-import ResponsiveTableWrapper from "Components/tableWrapper";
 import EditStudentModal from "Components/EditStudentModal";
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import AddStudentModal from "@/components/AddStudentModal";
