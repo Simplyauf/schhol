@@ -1,4 +1,5 @@
-import NextAuth, { AuthOptions, getServerSession } from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import { getServerSession } from "next-auth/next";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "Libs/mongodb";
@@ -12,7 +13,7 @@ interface ExtendedUser {
   image?: string | null;
 }
 
-export const authOptions: AuthOptions = {
+export const authOptions: NextAuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     CredentialsProvider({
@@ -67,9 +68,7 @@ export const authOptions: AuthOptions = {
   },
 };
 
-export default async function auth(req: NextApiRequest, res: NextApiResponse) {
-  return await NextAuth(req, res, authOptions);
-}
+export default NextAuth(authOptions);
 
 export async function isAuthenticated(
   req: NextApiRequest,
