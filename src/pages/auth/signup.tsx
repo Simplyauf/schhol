@@ -28,13 +28,12 @@ export default function SignUp() {
           errorData.message || "Failed to create account. Please try again."
         );
       }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error("Signup error:", error.message);
-      } else {
-        console.error("Signup error:", error);
-      }
-      toast.error("An unexpected error occurred. Please try again later.");
+    } catch (error) {
+      toast.error(
+        error
+          ? error.toString()
+          : "An unexpected error occurred. Please try again."
+      );
     }
   };
 

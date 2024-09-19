@@ -27,7 +27,11 @@ export default function SignIn() {
         router.push("/students");
       }
     } catch (error) {
-      toast.error("An unexpected error occurred. Please try again." || error);
+      toast.error(
+        error
+          ? error.toString()
+          : "An unexpected error occurred. Please try again."
+      );
     }
   };
 

@@ -150,8 +150,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       controller.abort();
     }, 15000);
 
-    console.log(`Fetching student data for ID: ${params?.id}`);
-
     const res = await fetch(
       `http://localhost:3000/api/students/${params?.id}`,
       {
@@ -170,10 +168,6 @@ export const getServerSideProps: GetServerSideProps = async ({
     }
 
     const student: Student = await res.json();
-
-    console.log(
-      `Successfully fetched student data: ${JSON.stringify(student)}`
-    );
 
     return {
       props: { student },

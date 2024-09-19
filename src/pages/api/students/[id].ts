@@ -15,7 +15,7 @@ export default async function handler(
     }
 
     const { id } = req.query;
-    console.log(req.query);
+
     if (!id || typeof id !== "string") {
       return res.status(400).json({ error: "Invalid student ID" });
     }
@@ -47,8 +47,6 @@ export default async function handler(
       case "PUT":
         try {
           const updatedStudent = req.body;
-          console.log("Updating student with ID:", id);
-          console.log("Update data:", updatedStudent);
 
           if (Object.keys(updatedStudent).length === 0) {
             return res.status(400).json({ message: "No update data provided" });
@@ -80,7 +78,6 @@ export default async function handler(
             { _id: new ObjectId(id) },
             { $set: updatedStudent }
           );
-          console.log("Update result:", result);
 
           if (result.modifiedCount === 1) {
             const updatedDoc = await studentsCollection.findOne({
