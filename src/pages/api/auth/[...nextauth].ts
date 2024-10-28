@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import { getServerSession } from "next-auth/next";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
-import clientPromise from "Libs/mongodb";
+import clientPromise from "../../../libs/mongodb";
 import bcryptjs from "bcryptjs";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -14,6 +14,7 @@ interface ExtendedUser {
 }
 
 export const authOptions: NextAuthOptions = {
+  debug: true,
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     CredentialsProvider({
@@ -48,6 +49,8 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+    updateAge: 24 * 60 * 60, // 24 hours
   },
 
   callbacks: {
@@ -74,10 +77,12 @@ export async function isAuthenticated(
 ): Promise<boolean> {
   try {
     const session = await getServerSession(req, res, authOptions);
-    console.log(session);
     if (!session) {
-      res.status(401).json({ message: "Unauthorized" });
-      return false;
+      console.log("No session found:", {
+        headers: req.headers,
+        cookies: req.cookies,
+      });
+      return res.status(401).json({ error: "Unauthorized" });
     }
     return true;
   } catch (error) {
