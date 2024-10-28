@@ -82,7 +82,8 @@ export async function isAuthenticated(
         headers: req.headers,
         cookies: req.cookies,
       });
-      return res.status(401).json({ error: "Unauthorized" });
+      res.status(401).json({ error: "Unauthorized" });
+      return false; // Return false instead of the response
     }
     return true;
   } catch (error) {
